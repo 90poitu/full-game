@@ -14,7 +14,8 @@ public class Buttons : MonoBehaviour
     [SerializeField] private UI _UI;
     [SerializeField] private buttonName _enum;
     [SerializeField] private level _level;
-    public void buttonActivate(int enumIndex)
+    [SerializeField] private timeReward _timeReward;
+        public void buttonActivate(int enumIndex)
     {
         switch(enumIndex)
         {
@@ -33,6 +34,9 @@ public class Buttons : MonoBehaviour
             case 3:
             _UI.panels[1].SetActive(false);
             _enum = buttonName.Reward_Exit;
+            break;
+            case 4:
+            _timeReward.TimeRewardMethod();
             break;
         }
     }
