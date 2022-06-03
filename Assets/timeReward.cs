@@ -7,11 +7,28 @@ public class timeReward : MonoBehaviour
 {
     [SerializeField] private GameObject[] _timeReward;
     [SerializeField] private float[] _timeToHit;
+    void Awake()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            if (PlayerPrefs.HasKey("Time " + i))
+            {
+                _timeToHit[0] = 100;
+                _timeToHit[1] = 99;
+                _timeToHit[2] = 66;
+                _timeToHit[3] = 99;
+                _timeToHit[4] = 33;
+            }
+        }
+    }
     void Start()
     {
         for (int i = 0; i < 5; i++)
         {
-         _timeToHit[i] = PlayerPrefs.GetFloat("Time " + i);
+            if (PlayerPrefs.HasKey("Time " + i))
+            {
+                _timeToHit[i] = PlayerPrefs.GetFloat("Time " + i);
+            }
         }
     }
     public void TimeRewardMethod()
@@ -23,8 +40,8 @@ public class timeReward : MonoBehaviour
 
             if (timerSlider && timeToHitText)
             {
-                timerSlider.maxValue = _timeToHit[i];
-                timerSlider.value = timerSlider.maxValue;
+                timerSlider.maxValue = 200;
+                timerSlider.value = _timeToHit[i];
 
                 timeToHitText.text = timerSlider.value.ToString("f1") + " S";
             }
