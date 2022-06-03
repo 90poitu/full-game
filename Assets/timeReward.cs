@@ -7,6 +7,13 @@ public class timeReward : MonoBehaviour
 {
     [SerializeField] private GameObject[] _timeReward;
     [SerializeField] private float[] _timeToHit;
+    void Start()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+         _timeToHit[i] = PlayerPrefs.GetFloat("Time " + i);
+        }
+    }
     public void TimeRewardMethod()
     {
         for (int i = 0; i < _timeReward.Length; i++)
@@ -23,13 +30,26 @@ public class timeReward : MonoBehaviour
             }
         }
     }
-    void Update()
+    void Update() => Invoke("TimeDecrease", Time.deltaTime);
+    public void TimelyButton(int time)
     {
-         for (int i = 0; i < _timeToHit.Length; i++)
+       if (PlayerPrefs.GetInt("_Time") >= _timeToHit[time])
         {
-            if (_timeToHit[i] > 0)
+            //give reward
+        }
+        else
+        {
+            Debug.Log((PlayerPrefs.GetInt("_Time") - _timeToHit[time]));
+        }
+    }
+
+    void TimeDecrease()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            if (PlayerPrefs.GetFloat("Time " + i) >= 0)
             {
-              _timeToHit[i] -= Time.deltaTime;
+             PlayerPrefs.SetFloat("Time " + i, _timeToHit[i] -= Time.deltaTime);
             }
         }
     }
